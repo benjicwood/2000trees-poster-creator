@@ -142,7 +142,7 @@ export default {
     openModal(position, title) {
         this.modalPosition = position
         this.modalTitle = title
-        this.key += 1
+        this.key = position
         this.isModalVisible = true
     },
     onSelect(selected) {
