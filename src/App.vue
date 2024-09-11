@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <TreesPoster msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script>
-import HelloWorld from './components/TreesPoster.vue'
+import TreesPoster from './components/TreesPoster.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TreesPoster
   }
 }
 </script>
