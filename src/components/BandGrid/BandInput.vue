@@ -28,7 +28,7 @@ export default {
     border: none;
     text-align: center; 
     color: white;
-    font-family: 'PT Sans Narrow', sans-serif;
+    font-family: 'Soleil', sans-serif;
     font-weight: 700;
     text-transform: uppercase;
 }

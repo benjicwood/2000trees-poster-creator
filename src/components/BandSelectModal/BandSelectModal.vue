@@ -645,7 +645,7 @@
     flex-direction: column;
     width: 60%;
     max-width: 500px;
-    font-family: 'PT Sans Narrow', sans-serif;
+    font-family: 'Soleil', sans-serif;
   }
 
   .modal-header,
