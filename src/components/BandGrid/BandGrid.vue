@@ -81,6 +81,7 @@
     @close="closeModal"
     :title="modalTitle"
     :key="key ? key.toString() : ''"
+    :hasBand="activeBand"
   />
 </template>
 
@@ -173,13 +174,16 @@ export default {
             wednesdayFourthBand: '',
           },
           key: 0,
+          activeBand: null,
       }
     },
   methods: {
     openModal(position, title) {
         this.modalPosition = position
+        console.log('here: ', !!this.bandPosition[this.modalPosition])
         this.modalTitle = title
         this.key = position
+        this.activeBand = !!this.bandPosition[this.modalPosition]
         this.isModalVisible = true
     },
     onSelect(selected) {
@@ -187,7 +191,7 @@ export default {
         this.bandPosition[this.modalPosition] = selectedBand
     },
     onResize(size) {
-      this.size[this.modalPosition] = `${size}-band-logo`
+        this.size[this.modalPosition] = `${size}-band-logo`
     },
     closeModal() {
         this.isModalVisible = false
@@ -234,5 +238,4 @@ export default {
 .largest-band-logo {
     transform:scale(1.3);
 }
-
 </style>

@@ -6,7 +6,7 @@
 <script>
 
 export default {
-  name: 'HeadlinerSection',
+    name: 'HeadlinerSection',
     props: {
         band: String,
         position: String,
