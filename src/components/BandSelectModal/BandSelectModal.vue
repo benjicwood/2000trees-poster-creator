@@ -26,6 +26,24 @@
         </slot>
        </section>
 
+       <template v-if="bandSelected">
+
+        <div class="slider-container">
+            <label for="slider">Size: {{ getSize(sliderValue) }}</label>
+        <input
+            :onChange="onSelectSize(sliderValue)"
+            type="range"
+            id="slider"
+            v-model="sliderValue"
+            :min="minValue"
+            :max="maxValue"
+            :step="stepValue"
+        />
+        </div>
+
+
+       </template >
+
         <button
           type="button"
           class="btn-red"
@@ -39,8 +57,7 @@
 
 <script>
   // import SearchDropdown from 'search-dropdown-vue'
-  import SearchDropdown from './SearchDropdown.vue'
-
+  import SearchDropdown from "./SearchDropdown.vue"
 
   export default {
     name: 'BandSelectModal',
@@ -53,7 +70,7 @@
     },
     data() {
       return {
-      bands: [ 
+      bands: [
           { name: '', id: '' },
           { name: 'A', id: 'a' },
           { name: 'A Day To Remember', id: 'adtr' },
@@ -604,19 +621,41 @@
           { name: 'Zand', id: 'zand' },
           { name: 'Zeal & Ardor', id: 'zealandardor' },
           { name: 'Zebrahead', id: 'zebrahead' },
-          { name: 'ZZ Top', id: 'zztop' },   
+          { name: 'ZZ Top', id: 'zztop' },
           { name: '100 Gecs', id: 'gecs' },
           { name: 'The 1975', id: 'the1975' },
           { name: '3 Doors Down', id: 'threedd' },
           { name: '3Teeth', id: 'teeth' },
           { name: '30 Seconds To Mars', id: 'thirtystm' },
-        ]
+        ],
+        bandSelected: false,
+        sliderValue: 4, // Initial value
+        minValue: 1,
+        maxValue: 7,
+        stepValue: 1, // Step size for each movement
+        logoSize: '',
       }
     },
     methods: {
       onSelectedOption(selected) {
-
-       this.$emit('selected', selected)
+        this.bandSelected = selected.id ? true : false;
+        this.$emit('selected', selected)
+    },
+    getSize(size) {
+      const logoSizes = {
+        1: 'smallest',
+        2: 'smaller',
+        3: 'small',
+        4: 'normal',
+        5: 'large',
+        6: 'larger',
+        7: 'largest',
+      };
+      return logoSizes[size] || 'normal';
+    },
+    onSelectSize(size) {
+      this.logoSize = this.getSize(size);
+      this.$emit('size',  this.logoSize);
     },
       close() {
         this.$emit('close');
@@ -626,7 +665,7 @@
 </script>
 
 <style>
-  .modal-backdrop {
+.modal-backdrop {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -636,9 +675,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .modal {
+.modal {
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
     display: flex;
@@ -646,47 +685,47 @@
     width: 60%;
     max-width: 500px;
     font-family: 'Soleil', sans-serif;
-  }
+}
 
-  .modal-header,
-  .modal-footer {
+.modal-header,
+.modal-footer {
     padding: 15px;
     display: flex;
-  }
+}
 
-  .modal-header {
+.modal-header {
     position: relative;
     border-bottom: 1px solid #eeeeee;
     background-color: #711214;
     color: white;
     justify-content: space-between;
-  }
+}
 
-  .modal-footer {
+.modal-footer {
     border-top: 1px solid #eeeeee;
     flex-direction: column;
     justify-content: flex-end;
-  }
+}
 
-  .modal-body {
+.modal-body {
     padding: 10px;
     display: flex;
     flex-direction: column;
-  }
+}
 
-  .modal-body .dropdown .dropdown-menu {
+.modal-body .dropdown .dropdown-menu {
     width: 92%;
-  }
+}
 
-  .modal-body .dropdown .dropdown-toggle {
+.modal-body .dropdown .dropdown-toggle {
     width: 95%;
-  }
+}
 
-  .modal-body .dropdown .dropdown-toggle input {
+.modal-body .dropdown .dropdown-toggle input {
     width: 100%;
-  }
+}
 
-  .btn-close {
+.btn-close {
     position: absolute;
     top: 0;
     right: 0;
@@ -697,9 +736,9 @@
     font-weight: bold;
     color: #4AAE9B;
     background: transparent;
-  }
+}
 
-  .btn-red {
+.btn-red {
     color: white;
     background: #711214;
     border: 1px solid #711214;
@@ -707,5 +746,17 @@
     margin: 5px;
     border-radius: 6px;
     cursor: pointer;
-  }
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+input[type="range"] {
+    width: 100%;
+    max-width: 400px;
+}
 </style>

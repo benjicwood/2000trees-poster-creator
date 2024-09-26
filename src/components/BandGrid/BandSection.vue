@@ -1,5 +1,5 @@
 <template>
-  <div :class="`${position} ${band}`">
+  <div :class="`${position} ${band} ${band && size ? size : ''}`">
   </div>
 </template>
 
@@ -7,10 +7,11 @@
 
 export default {
   name: 'HeadlinerSection',
-  props: {
-    band: String,
-    position: String,
-  }
+    props: {
+        band: String,
+        position: String,
+        size: String,
+    }
 }
 </script>
 

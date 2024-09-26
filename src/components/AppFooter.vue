@@ -1,36 +1,26 @@
 <template>
-  <div class="footer">
-    <a href="https://ko-fi.com/benjicwood" target="_blank">
-        <img class="kofi-link" src="../assets/icons/kofi_button_dark.png" alt="kofi">
-    </a>
-    <a href="https://2000trees.co.uk/" target="_blank">
-        <img class="trees-link" src="../assets/icons/trees.png" alt="2000trees">
-    </a>
-    <a href="https://benjicwood.github.io/festival-poster-creator/" target="_blank">
-        <img class="insta-link" src="../assets/icons/download_dog.png" alt="kofi">
-    </a>
-    <a href="https://www.instagram.com/benjicwood/" target="_blank">
-        <img class="insta-link" src="../assets/icons/insta_dark.png" alt="kofi">
-    </a>
-  </div>
+    <div class="footer">
+        <a href="https://ko-fi.com/benjicwood" target="_blank">
+            <img class="kofi-link" src="../assets/icons/kofi_button_dark.png" alt="kofi">
+        </a>
+        <a href="https://2000trees.co.uk/" target="_blank">
+            <img class="trees-link" src="../assets/icons/trees.png" alt="2000trees">
+        </a>
+        <a href="https://benjicwood.github.io/festival-poster-creator/" target="_blank">
+            <img class="insta-link" src="../assets/icons/download_dog.png" alt="kofi">
+        </a>
+        <a href="https://www.instagram.com/benjicwood/" target="_blank">
+            <img class="insta-link" src="../assets/icons/insta_dark.png" alt="kofi">
+        </a>
+    </div>
 </template>
 
 <script>
-// import BandGrid from "./BandGrid.vue"
-// import SidePanel from "./SidePanel.vue";
-// import kofiLogo from "../assets/icons/kofi.png"
-
 export default {
-  name: 'AppFooter',
-//   components: {
-//   },
-//   props: {
-//     msg: String
-//   }
+    name: 'AppFooter',
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped style="scss">
 
 .footer {
@@ -68,5 +58,4 @@ export default {
 .icon {
     padding: 4px;
 }
-
 </style>
