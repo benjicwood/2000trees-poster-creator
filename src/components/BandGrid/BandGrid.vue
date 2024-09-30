@@ -2,19 +2,19 @@
   <div class="band-grid-container">
       <!-- Thursday -->
       <div class="band-grid-thursday">
-        <BandSection position="main-headliner" @click="openModal('thursdayHeadlinerOne', 'Thursday Headliner')" :band="bandPosition.thursdayHeadlinerOne" />
-        <BandSection position="main-headliner" @click="openModal('thursdayHeadlinerTwo', 'Thursday Headliner')" :band="bandPosition.thursdayHeadlinerTwo" />
+        <BandSection position="main-headliner" @click="openModal('thursdayHeadlinerOne', 'Thursday Headliner')" :band="bandPosition.thursdayHeadlinerOne" :size="size.thursdayHeadlinerOne" />
+        <BandSection position="main-headliner" @click="openModal('thursdayHeadlinerTwo', 'Thursday Headliner')" :band="bandPosition.thursdayHeadlinerTwo" :size="size.thursdayHeadlinerTwo" />
       </div>
 
       <div class="sub-grid">
-        <BandSection position="main-sub" @click="openModal('thursdaySecondRowOne', 'Thursday Band')" :band="bandPosition.thursdaySecondRowOne" />
-        <BandSection position="main-sub" @click="openModal('thursdaySecondRowTwo', 'Thursday Band')" :band="bandPosition.thursdaySecondRowTwo" />
-        <BandSection position="main-sub" @click="openModal('thursdaySecondRowThree', 'Thursday Band')" :band="bandPosition.thursdaySecondRowThree" />
-        <BandSection position="main-sub" @click="openModal('thursdaySecondRowFour', 'Thursday Band')" :band="bandPosition.thursdaySecondRowFour" />
-        <BandSection position="main-sub" @click="openModal('thursdayThirdRowOne', 'Thursday Band')" :band="bandPosition.thursdayThirdRowOne" />
-        <BandSection position="main-sub" @click="openModal('thursdayThirdRowTwo', 'Thursday Band')" :band="bandPosition.thursdayThirdRowTwo" />
-        <BandSection position="main-sub" @click="openModal('thursdayThirdRowThree', 'Thursday Band')" :band="bandPosition.thursdayThirdRowThree" />
-        <BandSection position="main-sub" @click="openModal('thursdayThirdRowFour', 'Thursday Band')" :band="bandPosition.thursdayThirdRowFour" />
+        <BandSection position="main-sub" @click="openModal('thursdaySecondRowOne', 'Thursday Band')" :band="bandPosition.thursdaySecondRowOne" :size="size.thursdaySecondRowOne" />
+        <BandSection position="main-sub" @click="openModal('thursdaySecondRowTwo', 'Thursday Band')" :band="bandPosition.thursdaySecondRowTwo" :size="size.thursdaySecondRowTwo" />
+        <BandSection position="main-sub" @click="openModal('thursdaySecondRowThree', 'Thursday Band')" :band="bandPosition.thursdaySecondRowThree" :size="size.thursdaySecondRowThree" />
+        <BandSection position="main-sub" @click="openModal('thursdaySecondRowFour', 'Thursday Band')" :band="bandPosition.thursdaySecondRowFour" :size="size.thursdaySecondRowFour" />
+        <BandSection position="main-sub" @click="openModal('thursdayThirdRowOne', 'Thursday Band')" :band="bandPosition.thursdayThirdRowOne" :size="size.thursdayThirdRowOne" />
+        <BandSection position="main-sub" @click="openModal('thursdayThirdRowTwo', 'Thursday Band')" :band="bandPosition.thursdayThirdRowTwo" :size="size.thursdayThirdRowTwo" />
+        <BandSection position="main-sub" @click="openModal('thursdayThirdRowThree', 'Thursday Band')" :band="bandPosition.thursdayThirdRowThree" :size="size.thursdayThirdRowThree" />
+        <BandSection position="main-sub" @click="openModal('thursdayThirdRowFour', 'Thursday Band')" :band="bandPosition.thursdayThirdRowFour" :size="size.thursdayThirdRowFour" />
       </div>
 
       <div class="input-grid">
@@ -24,19 +24,19 @@
 
       <!-- Friday -->
       <div class="band-grid-weekend">
-        <BandSection position="main-headliner" @click="openModal('fridayHeadlinerOne', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerOne" />
-        <BandSection position="main-headliner" @click="openModal('fridayHeadlinerTwo', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerTwo" />
+        <BandSection position="main-headliner" @click="openModal('fridayHeadlinerOne', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerOne" :size="size.fridayHeadlinerOne" />
+        <BandSection position="main-headliner" @click="openModal('fridayHeadlinerTwo', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerTwo" :size="size.fridayHeadlinerTwo" />
       </div>
 
       <div class="sub-grid">
-        <BandSection position="main-sub" @click="openModal('fridaySecondRowOne', 'Friday Band')" :band="bandPosition.fridaySecondRowOne" />
-        <BandSection position="main-sub" @click="openModal('fridaySecondRowTwo', 'Friday Band')" :band="bandPosition.fridaySecondRowTwo" />
-        <BandSection position="main-sub" @click="openModal('fridaySecondRowThree', 'Friday Band')" :band="bandPosition.fridaySecondRowThree" />
-        <BandSection position="main-sub" @click="openModal('fridaySecondRowFour', 'Friday Band')" :band="bandPosition.fridaySecondRowFour" />
-        <BandSection position="main-sub" @click="openModal('fridayThirdRowOne', 'Friday Band')" :band="bandPosition.fridayThirdRowOne" />
-        <BandSection position="main-sub" @click="openModal('fridayThirdRowTwo', 'Friday Band')" :band="bandPosition.fridayThirdRowTwo" />
-        <BandSection position="main-sub" @click="openModal('fridayThirdRowThree', 'Friday Band')" :band="bandPosition.fridayThirdRowThree" />
-        <BandSection position="main-sub" @click="openModal('fridayThirdRowFour', 'Friday Band')" :band="bandPosition.fridayThirdRowFour" />
+        <BandSection position="main-sub" @click="openModal('fridaySecondRowOne', 'Friday Band')" :band="bandPosition.fridaySecondRowOne" :size="size.fridaySecondRowOne" />
+        <BandSection position="main-sub" @click="openModal('fridaySecondRowTwo', 'Friday Band')" :band="bandPosition.fridaySecondRowTwo" :size="size.fridaySecondRowTwo" />
+        <BandSection position="main-sub" @click="openModal('fridaySecondRowThree', 'Friday Band')" :band="bandPosition.fridaySecondRowThree" :size="size.fridaySecondRowThree" />
+        <BandSection position="main-sub" @click="openModal('fridaySecondRowFour', 'Friday Band')" :band="bandPosition.fridaySecondRowFour" :size="size.fridaySecondRowFour" />
+        <BandSection position="main-sub" @click="openModal('fridayThirdRowOne', 'Friday Band')" :band="bandPosition.fridayThirdRowOne" :size="size.fridayThirdRowOne" />
+        <BandSection position="main-sub" @click="openModal('fridayThirdRowTwo', 'Friday Band')" :band="bandPosition.fridayThirdRowTwo" :size="size.fridayThirdRowTwo" />
+        <BandSection position="main-sub" @click="openModal('fridayThirdRowThree', 'Friday Band')" :band="bandPosition.fridayThirdRowThree" :size="size.fridayThirdRowThree" />
+        <BandSection position="main-sub" @click="openModal('fridayThirdRowFour', 'Friday Band')" :band="bandPosition.fridayThirdRowFour" :size="size.fridayThirdRowFour" />
       </div>
 
       <div class="input-grid">
@@ -46,19 +46,19 @@
 
       <!-- Saturday -->
       <div class="band-grid-weekend">
-        <BandSection position="main-headliner" @click="openModal('saturdayHeadlinerOne', 'Saturday Headliner')" :band="bandPosition.saturdayHeadlinerOne" />
-        <BandSection position="main-headliner" @click="openModal('saturdayHeadlinerTwo', 'Saturday Headliner')" :band="bandPosition.saturdayHeadlinerTwo" />
+        <BandSection position="main-headliner" @click="openModal('saturdayHeadlinerOne', 'Saturday Headliner')" :band="bandPosition.saturdayHeadlinerOne" :size="size.saturdayHeadlinerOne" />
+        <BandSection position="main-headliner" @click="openModal('saturdayHeadlinerTwo', 'Saturday Headliner')" :band="bandPosition.saturdayHeadlinerTwo" :size="size.saturdayHeadlinerTwo" />
       </div>
 
       <div class="sub-grid">
-        <BandSection position="main-sub" @click="openModal('saturdaySecondRowOne', 'Saturday Band')" :band="bandPosition.saturdaySecondRowOne" />
-        <BandSection position="main-sub" @click="openModal('saturdaySecondRowTwo', 'Saturday Band')" :band="bandPosition.saturdaySecondRowTwo" />
-        <BandSection position="main-sub" @click="openModal('saturdaySecondRowThree', 'Saturday Band')" :band="bandPosition.saturdaySecondRowThree" />
-        <BandSection position="main-sub" @click="openModal('saturdaySecondRowFour', 'Saturday Band')" :band="bandPosition.saturdaySecondRowFour" />
-        <BandSection position="main-sub" @click="openModal('saturdayThirdRowOne', 'Saturday Band')" :band="bandPosition.saturdayThirdRowOne" />
-        <BandSection position="main-sub" @click="openModal('saturdayThirdRowTwo', 'Saturday Band')" :band="bandPosition.saturdayThirdRowTwo" />
-        <BandSection position="main-sub" @click="openModal('saturdayThirdRowThree', 'Saturday Band')" :band="bandPosition.saturdayThirdRowThree" />
-        <BandSection position="main-sub" @click="openModal('saturdayThirdRowFour', 'Saturday Band')" :band="bandPosition.saturdayThirdRowFour" />
+        <BandSection position="main-sub" @click="openModal('saturdaySecondRowOne', 'Saturday Band')" :band="bandPosition.saturdaySecondRowOne" :size="size.saturdaySecondRowOne" />
+        <BandSection position="main-sub" @click="openModal('saturdaySecondRowTwo', 'Saturday Band')" :band="bandPosition.saturdaySecondRowTwo" :size="size.saturdaySecondRowTwo" />
+        <BandSection position="main-sub" @click="openModal('saturdaySecondRowThree', 'Saturday Band')" :band="bandPosition.saturdaySecondRowThree" :size="size.saturdaySecondRowThree" />
+        <BandSection position="main-sub" @click="openModal('saturdaySecondRowFour', 'Saturday Band')" :band="bandPosition.saturdaySecondRowFour" :size="size.saturdaySecondRowFour" />
+        <BandSection position="main-sub" @click="openModal('saturdayThirdRowOne', 'Saturday Band')" :band="bandPosition.saturdayThirdRowOne" :size="size.saturdayThirdRowOne" />
+        <BandSection position="main-sub" @click="openModal('saturdayThirdRowTwo', 'Saturday Band')" :band="bandPosition.saturdayThirdRowTwo" :size="size.saturdayThirdRowTwo" />
+        <BandSection position="main-sub" @click="openModal('saturdayThirdRowThree', 'Saturday Band')" :band="bandPosition.saturdayThirdRowThree" :size="size.saturdayThirdRowThree" />
+        <BandSection position="main-sub" @click="openModal('saturdayThirdRowFour', 'Saturday Band')" :band="bandPosition.saturdayThirdRowFour" :size="size.saturdayThirdRowFour" />
       </div>
 
       <div class="input-grid">
@@ -68,18 +68,20 @@
 
       <!-- Wednesday -->
       <div class="band-grid-wednesday">
-        <BandSection position="main-third" @click="openModal('wednesdayHeadliner', 'Wednesday Headliner')" :band="bandPosition.wednesdayHeadliner" />
-        <BandSection position="alt-third" @click="openModal('wednesdaySecondBand', 'Wednesday Band')" :band="bandPosition.wednesdaySecondBand" />
-        <BandSection position="alt-third" @click="openModal('wednesdayThirdBand', 'Wednesday Band')" :band="bandPosition.wednesdayThirdBand" />
-        <BandSection position="alt-third" @click="openModal('wednesdayFourthBand', 'Wednesday Band')" :band="bandPosition.wednesdayFourthBand" />
+        <BandSection position="main-third" @click="openModal('wednesdayHeadliner', 'Wednesday Headliner')" :band="bandPosition.wednesdayHeadliner" :size="size.wednesdayHeadliner" />
+        <BandSection position="alt-third" @click="openModal('wednesdaySecondBand', 'Wednesday Band')" :band="bandPosition.wednesdaySecondBand" :size="size.wednesdaySecondBand" />
+        <BandSection position="alt-third" @click="openModal('wednesdayThirdBand', 'Wednesday Band')" :band="bandPosition.wednesdayThirdBand" :size="size.wednesdayThirdBand" />
+        <BandSection position="alt-third" @click="openModal('wednesdayFourthBand', 'Wednesday Band')" :band="bandPosition.wednesdayFourthBand" :size="size.wednesdayFourthBand" />
       </div>
   </div>
   <BandSelectModal
     v-show="isModalVisible"
     @selected="onSelect"
+    @size="onResize"
     @close="closeModal"
     :title="modalTitle"
     :key="key ? key.toString() : ''"
+    :hasBand="activeBand"
   />
 </template>
 
@@ -135,7 +137,45 @@ export default {
             wednesdayThirdBand: '',
             wednesdayFourthBand: '',
           },
+          size: {
+            thursdayHeadlinerOne: '',
+            thursdayHeadlinerTwo: '',
+            thursdaySecondRowOne: '',
+            thursdaySecondRowTwo: '',
+            thursdaySecondRowThree: '',
+            thursdaySecondRowFour: '',
+            thursdayThirdRowOne: '',
+            thursdayThirdRowTwo: '',
+            thursdayThirdRowThree: '',
+            thursdayThirdRowFour: '',
+            fridayHeadlinerOne: '',
+            fridayHeadlinerTwo: '',
+            fridaySecondRowOne: '',
+            fridaySecondRowTwo: '',
+            fridaySecondRowThree: '',
+            fridaySecondRowFour: '',
+            fridayThirdRowOne: '',
+            fridayThirdRowTwo: '',
+            fridayThirdRowThree: '',
+            fridayThirdRowFour: '',
+            saturdayHeadlinerOne: '',
+            saturdayHeadlinerTwo: '',
+            saturdaySecondRowOne: '',
+            saturdaySecondRowTwo: '',
+            saturdaySecondRowThree: '',
+            saturdaySecondRowFour: '',
+            saturdayThirdRowOne: '',
+            saturdayThirdRowTwo: '',
+            saturdayThirdRowThree: '',
+            saturdayThirdRowFour: '',
+            wednesdayHeadliner: '',
+            wednesdaySecondBand: '',
+            wednesdayThirdBand: '',
+            wednesdayFourthBand: '',
+          },
           key: 0,
+          activeBand: null,
+        //   activeBandSize: null,
       }
     },
   methods: {
@@ -143,11 +183,29 @@ export default {
         this.modalPosition = position
         this.modalTitle = title
         this.key = position
+        this.activeBand = !!this.bandPosition[this.modalPosition]
+        // this.activeBandSize = this.getSizeInverse(this.size[this.modalPosition].split('-')[0]);
         this.isModalVisible = true
     },
+    // getSizeInverse(size) {
+    //     const logoSizes = {
+    //         1: 'smallest',
+    //         2: 'smaller',
+    //         3: 'small',
+    //         4: 'normal',
+    //         5: 'large',
+    //         6: 'larger',
+    //         7: 'largest',
+    //     };
+    //     const entry = Object.entries(logoSizes).find((value) => value === size);
+    //     return entry ? parseInt(entry[0]) : 4;
+    // },
     onSelect(selected) {
-    const selectedBand = selected.id
-    this.bandPosition[this.modalPosition] = selectedBand
+        const selectedBand = selected.id ?? ''
+        this.bandPosition[this.modalPosition] = selectedBand
+    },
+    onResize(size) {
+        this.size[this.modalPosition] = `${size}-band-logo`
     },
     closeModal() {
         this.isModalVisible = false
@@ -166,5 +224,32 @@ export default {
 
 .input-grid div:hover {
   border: solid #F1B826 1px;
+}
+
+.smallest-band-logo {
+    transform:scale(0.7);
+}
+.smaller-band-logo {
+    transform:scale(0.8);
+
+}
+.small-band-logo {
+    transform:scale(0.9);
+}
+
+.normal-band-logo {
+    transform:scale(1);
+}
+
+.large-band-logo {
+    transform:scale(1.1);
+}
+
+.larger-band-logo {
+    transform:scale(1.2);
+}
+
+.largest-band-logo {
+    transform:scale(1.3);
 }
 </style>
