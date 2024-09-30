@@ -175,17 +175,31 @@ export default {
           },
           key: 0,
           activeBand: null,
+        //   activeBandSize: null,
       }
     },
   methods: {
     openModal(position, title) {
         this.modalPosition = position
-        console.log('here: ', !!this.bandPosition[this.modalPosition])
         this.modalTitle = title
         this.key = position
         this.activeBand = !!this.bandPosition[this.modalPosition]
+        // this.activeBandSize = this.getSizeInverse(this.size[this.modalPosition].split('-')[0]);
         this.isModalVisible = true
     },
+    // getSizeInverse(size) {
+    //     const logoSizes = {
+    //         1: 'smallest',
+    //         2: 'smaller',
+    //         3: 'small',
+    //         4: 'normal',
+    //         5: 'large',
+    //         6: 'larger',
+    //         7: 'largest',
+    //     };
+    //     const entry = Object.entries(logoSizes).find((value) => value === size);
+    //     return entry ? parseInt(entry[0]) : 4;
+    // },
     onSelect(selected) {
         const selectedBand = selected.id ?? ''
         this.bandPosition[this.modalPosition] = selectedBand
