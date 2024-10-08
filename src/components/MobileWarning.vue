@@ -18,7 +18,7 @@ export default {
 }
 
 .warning-box {
-    background-color: #0D2036;
+    background-color: #113048;
     color: white;
     text-align: center;
     padding: 10px;

@@ -51,7 +51,6 @@
 
 @mixin band-grid-container {
     display: grid;
-    grid-template-columns: auto auto;
     grid-gap: 2px;
     height: 100px;
     div:hover {
@@ -61,15 +60,24 @@
 
 .band-grid-thursday {
     @include band-grid-container;
+    grid-template-columns: auto auto;
     padding: 115px 40px 0 60px;
 }
 
 .band-grid-weekend {
     @include band-grid-container;
+    grid-template-columns: auto;
     padding: 10px 40px 0 60px;
 }
 
 .sub-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2px;
+    padding: 0 35px 0 60px;
+}
+
+.sub-grid-four {
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-gap: 2px;
@@ -77,6 +85,10 @@
 }
 
 .sub-grid div:hover {
+    border: solid #F1B826 1px;
+}
+
+.sub-grid-four div:hover {
     border: solid #F1B826 1px;
 }
 

@@ -21,7 +21,7 @@ export default {
 <style scoped>
 .trees-poster {
     background-color: black;
-    background-image: url(../assets/background/trees-blank-2025.png);
+    background-image: url(../assets/background/trees-blank-new-2025.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: top left;
