@@ -398,6 +398,7 @@
             { name: 'The Mars Volta', id: 'themarsvolta' },
             { name: 'Mastodon', id: 'mastodon' },
             { name: 'Maybeshewill', id: 'maybeshewill' },
+            { name: 'McFly', id: 'mcfly' },
             { name: 'Mclusky', id: 'mclusky' },
             { name: 'Megadeth', id: 'megadeth' },
             { name: 'The Menzingers', id: 'menzingers' },
