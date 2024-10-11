@@ -25,9 +25,9 @@
       </div>
 
       <!-- Friday -->
-      <div class="band-grid-weekend">
+      <div class="band-grid-friday">
         <BandSection position="main-headliner" @click="openModal('fridayHeadlinerOne', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerOne" :size="size.fridayHeadlinerOne" />
-        <!-- <BandSection position="main-headliner" @click="openModal('fridayHeadlinerTwo', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerTwo" :size="size.fridayHeadlinerTwo" /> -->
+        <BandSection position="main-headliner" @click="openModal('fridayHeadlinerTwo', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerTwo" :size="size.fridayHeadlinerTwo" />
       </div>
 
       <div class="sub-grid">
