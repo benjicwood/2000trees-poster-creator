@@ -1,9 +1,9 @@
 <template>
   <div class="band-grid-container">
       <!-- Thursday -->
-      <div class="band-grid-thursday">
+      <div :class="`band-grid-thursday ${ coHeadliner.thursday ? 'headliners-two' : 'headliners-one' }`">
         <BandSection position="main-headliner" @click="openModal('thursdayHeadlinerOne', 'Thursday Headliner')" :band="bandPosition.thursdayHeadlinerOne" :size="size.thursdayHeadlinerOne" />
-        <BandSection position="main-headliner" @click="openModal('thursdayHeadlinerTwo', 'Thursday Headliner')" :band="bandPosition.thursdayHeadlinerTwo" :size="size.thursdayHeadlinerTwo" />
+        <BandSection v-if="coHeadliner.thursday" position="main-headliner" @click="openModal('thursdayHeadlinerTwo', 'Thursday Headliner')" :band="bandPosition.thursdayHeadlinerTwo" :size="size.thursdayHeadlinerTwo" />
       </div>
 
       <div class="sub-grid">
@@ -25,9 +25,9 @@
       </div>
 
       <!-- Friday -->
-      <div class="band-grid-friday">
+      <div :class="`band-grid-friday ${ coHeadliner.friday ? 'headliners-two' : 'headliners-one' }`">
         <BandSection position="main-headliner" @click="openModal('fridayHeadlinerOne', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerOne" :size="size.fridayHeadlinerOne" />
-        <BandSection position="main-headliner" @click="openModal('fridayHeadlinerTwo', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerTwo" :size="size.fridayHeadlinerTwo" />
+        <BandSection v-if="coHeadliner.friday" position="main-headliner" @click="openModal('fridayHeadlinerTwo', 'Friday Headliner')" :band="bandPosition.fridayHeadlinerTwo" :size="size.fridayHeadlinerTwo" />
       </div>
 
       <div class="sub-grid">
@@ -49,9 +49,9 @@
       </div>
 
       <!-- Saturday -->
-      <div class="band-grid-weekend">
+      <div :class="`band-grid-saturday ${ coHeadliner.saturday ? 'headliners-two' : 'headliners-one'}`">
         <BandSection position="main-headliner" @click="openModal('saturdayHeadlinerOne', 'Saturday Headliner')" :band="bandPosition.saturdayHeadlinerOne" :size="size.saturdayHeadlinerOne" />
-        <!-- <BandSection position="main-headliner" @click="openModal('saturdayHeadlinerTwo', 'Saturday Headliner')" :band="bandPosition.saturdayHeadlinerTwo" :size="size.saturdayHeadlinerTwo" /> -->
+        <BandSection v-if="coHeadliner.saturday" position="main-headliner" @click="openModal('saturdayHeadlinerTwo', 'Saturday Headliner')" :band="bandPosition.saturdayHeadlinerTwo" :size="size.saturdayHeadlinerTwo" />
       </div>
 
       <div class="sub-grid">
@@ -85,9 +85,13 @@
     @selected="onSelect"
     @size="onResize"
     @close="closeModal"
+    @coHeadliner="handleCoHeadliner"
     :title="modalTitle"
     :key="key ? key.toString() : ''"
     :hasBand="activeBand"
+    :thursdayCoHeadliner="coHeadliner.thursday"
+    :fridayCoHeadliner="coHeadliner.friday"
+    :saturdayCoHeadliner="coHeadliner.saturday"
   />
 </template>
 
@@ -179,6 +183,11 @@ export default {
             wednesdayThirdBand: '',
             wednesdayFourthBand: '',
           },
+          coHeadliner: {
+            thursday: false,
+            friday: false,
+            saturday: false,
+          },
           key: 0,
           activeBand: null,
         //   activeBandSize: null,
@@ -212,6 +221,18 @@ export default {
     },
     onResize(size) {
         this.size[this.modalPosition] = `${size}-band-logo`
+    },
+    handleCoHeadliner({ day, value }) {
+        // console.log(`${day} Co-Headliner: ${value}`);
+        if (day === 'Thursday') {
+            this.coHeadliner.thursday = value;
+        }
+        if (day === 'Friday') {
+            this.coHeadliner.friday = value;
+        }
+        if (day === 'Saturday') {
+            this.coHeadliner.saturday = value;
+        }
     },
     closeModal() {
         this.isModalVisible = false

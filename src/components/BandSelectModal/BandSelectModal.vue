@@ -26,6 +26,33 @@
         </slot>
        </section>
 
+       <template v-if="title && title === 'Thursday Headliner'">
+        <div style="margin: auto; padding-bottom: 1rem;">
+            <label>
+                <input type="checkbox" v-model="thursdayCoHeadlinerModel" @change="emitCoHeadliner('Thursday', thursdayCoHeadliner)" />
+                is Co-Headliner (Thursday)
+                </label>
+            </div>
+        </template>
+
+        <template v-if="title && title === 'Friday Headliner'">
+        <div style="margin: auto; padding-bottom: 1rem;">
+            <label>
+                <input type="checkbox" v-model="fridayCoHeadlinerModel" @change="emitCoHeadliner('Friday', fridayCoHeadliner)" />
+                is Co-Headliner (Friday)
+                </label>
+            </div>
+        </template>
+
+        <template v-if="title && title === 'Saturday Headliner'">
+        <div style="margin: auto; padding-bottom: 1rem;">
+            <label>
+                <input type="checkbox" v-model="saturdayCoHeadlinerModel" @change="emitCoHeadliner('Saturday', saturdayCoHeadliner)" />
+                is Co-Headliner (Saturday)
+                </label>
+            </div>
+        </template>
+
        <template v-if="bandSelected || hasBand">
             <div class="slider-container">
                 <label for="slider">Size: {{ getSize(sliderValue) }}</label>
@@ -62,6 +89,9 @@
         title: String,
         id: String,
         hasBand: Boolean,
+        thursdayCoHeadliner: Boolean,
+        fridayCoHeadliner: Boolean,
+        saturdayCoHeadliner: Boolean,
     },
     components: {
       SearchDropdown,
@@ -661,7 +691,37 @@
         maxValue: 7,
         stepValue: 1, // Step size for each movement
         logoSize: '',
+        // thursdayCoHeadliner: this.thursdayCoHeadliner, // 1 or 2 headliner slots
+        // fridayCoHeadliner: this.fridayCoHeadliner,
+        // saturdayCoHeadliner: this.saturdaCoHeadliner,
+        // isCoHeadliner: false,
       }
+    },
+    computed: {
+        thursdayCoHeadlinerModel: {
+            get() {
+                return this.thursdayCoHeadliner;
+            },
+            set(value) {
+                this.$emit('co-headliner', { day: 'Thursday', value });
+            }
+        },
+        fridayCoHeadlinerModel: {
+            get() {
+                return this.fridayCoHeadliner;
+            },
+            set(value) {
+                this.$emit('co-headliner', { day: 'Friday', value });
+            }
+        },
+        saturdayCoHeadlinerModel: {
+            get() {
+                return this.saturdayCoHeadliner;
+            },
+            set(value) {
+                this.$emit('co-headliner', { day: 'Saturday', value });
+            }
+        }
     },
     methods: {
         onSelectedOption(selected) {
@@ -683,6 +743,18 @@
         onSelectSize(size) {
             this.logoSize = this.getSize(size);
             this.$emit('size',  this.logoSize);
+        },
+        emitCoHeadliner(day, value) {
+            this.$emit('co-headliner', { day, value });
+            // if (this.title === 'Thursday Headliner') {
+            //     this.$emit('co-headliner', this.thursdayCoHeadliner);
+            // }
+            // if (this.title === 'Friday Headliner') {
+            //     this.$emit('co-headliner', this.fridayCoHeadliner);
+            // }
+            // if (this.title === 'Saturday Headliner') {
+            //     this.$emit('co-headliner', this.saturdayCoHeadliner);
+            // }
         },
         close() {
             this.$emit('close');

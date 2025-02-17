@@ -60,20 +60,25 @@
 
 .band-grid-thursday {
     @include band-grid-container;
-    grid-template-columns: auto auto;
     padding: 115px 40px 0 60px;
 }
 
 .band-grid-friday {
     @include band-grid-container;
-    grid-template-columns: auto auto;
     padding: 10px 40px 0 60px;
 }
 
-.band-grid-weekend {
+.band-grid-saturday {
     @include band-grid-container;
-    grid-template-columns: auto;
     padding: 10px 40px 0 60px;
+}
+
+.headliners-one {
+    grid-template-columns: auto;
+}
+
+.headliners-two {
+    grid-template-columns: auto auto;
 }
 
 .sub-grid {
