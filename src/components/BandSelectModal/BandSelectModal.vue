@@ -264,6 +264,7 @@
             { name: 'De Staat', id: 'destaat' },
             { name: 'Dead Poet Society', id: 'dps' },
             { name: 'Dead Pony', id: 'deadpony' },
+            { name: 'Deaf Havana', id: 'deafhavana' },
             { name: 'Deafheaven', id: 'deafheaven' },
             { name: 'Death Cab For Cutie', id: 'dcfc' },
             { name: 'Death From Above 1979', id: 'deathfromabove' },
