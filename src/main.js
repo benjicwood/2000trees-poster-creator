@@ -1,4 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import VueGtag from 'vue-gtag'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+app.use(VueGtag, {
+  config: { id: 'G-W3G7NRX1PM' }
+})
+
+app.mount('#app')
