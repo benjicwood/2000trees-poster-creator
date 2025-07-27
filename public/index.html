@@ -14,7 +14,9 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-W3G7NRX1PM');
+    gtag('config', 'G-W3G7NRX1PM', {
+        debug_mode: location.search.includes('debug_mode=true'),
+    });
     </script>
   </head>
   <body>

@@ -98,15 +98,30 @@ export default {
             }
         },
         exit() {
+            const previousSelected = this.selected;
             if (!this.selected.id) {
                 this.selected = {};
                 this.searchFilter = '';
             } else {
                 this.searchFilter = this.selected.name;
             }
-            this.$emit('selected', this.selected);
             this.optionsShown = false;
+
+            if (this.selected !== previousSelected) {
+                this.$emit('selected', this.selected);
+            }
         },
+
+        // exit() {
+        //     if (!this.selected.id) {
+        //         this.selected = {};
+        //         this.searchFilter = '';
+        //     } else {
+        //         this.searchFilter = this.selected.name;
+        //     }
+        //     // this.$emit('selected', this.selected);
+        //     this.optionsShown = false;
+        // },
         // Selecting when pressing Enter
         keyMonitor: function (event) {
             if (event.key === 'Enter' && this.filteredOptions[0])

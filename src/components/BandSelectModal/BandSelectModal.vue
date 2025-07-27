@@ -842,12 +842,17 @@
             this.bandSelected = selected.id ? true : false;
             this.$emit('selected', selected);
 
+
             if (selected?.name) {
                 window.gtag('event', 'band_selected', {
-                event_category: 'interaction',
-                event_label: selected.name,
+                band_name: selected.name,
                 value: 1,
             });
+            //     window.gtag('event', 'band_selected', {
+            //     event_category: 'interaction',
+            //     event_label: selected.name,
+            //     value: 1,
+            // });
             }
         },
         getSize(size) {
