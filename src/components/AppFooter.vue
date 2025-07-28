@@ -7,10 +7,10 @@
             <img class="trees-link" src="../assets/icons/trees.png" alt="2000trees">
         </a>
         <a href="https://benjicwood.github.io/festival-poster-creator/" target="_blank" @click="trackClick('Download Poster')">
-            <img class="insta-link" src="../assets/icons/download_dog.png" alt="kofi">
+            <img class="insta-link" src="../assets/icons/download_dog.png" alt="download">
         </a>
         <a href="https://www.instagram.com/benjicwood/" target="_blank" @click="trackClick('Instagram')">
-            <img class="insta-link" src="../assets/icons/insta_dark.png" alt="kofi">
+            <img class="insta-link" src="../assets/icons/insta_dark.png" alt="insta">
         </a>
     </div>
 </template>
