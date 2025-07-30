@@ -55,7 +55,7 @@ export default {
         maxItem: {
             type: Number,
             required: false,
-            default: 700,
+            default: 750,
         },
         id: {
             type: Number,
