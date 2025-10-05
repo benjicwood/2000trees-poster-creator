@@ -945,6 +945,7 @@
             if (selected?.name) {
                 window.gtag('event', 'band_selected', {
                 band_name: selected.name,
+                position: this.title,
                 value: 1,
             });
             //     window.gtag('event', 'band_selected', {
