@@ -89,6 +89,7 @@
         title: String,
         id: String,
         hasBand: Boolean,
+        position: String,
         thursdayCoHeadliner: Boolean,
         fridayCoHeadliner: Boolean,
         saturdayCoHeadliner: Boolean,
@@ -937,15 +938,52 @@
         }
     },
     methods: {
+        getBandRole(key) {
+            const mapping = {
+                thursdayHeadlinerOne: 'headliner',
+                thursdayHeadlinerTwo: 'co-headliner',
+                fridayHeadlinerOne: 'headliner',
+                fridayHeadlinerTwo: 'co-headliner',
+                saturdayHeadlinerOne: 'headliner',
+                saturdayHeadlinerTwo: 'co-headliner',
+                thursdaySecondRowOne: 'second row',
+                thursdaySecondRowTwo: 'second row',
+                thursdaySecondRowThree: 'second row',
+                fridaySecondRowOne: 'second row',
+                fridaySecondRowTwo: 'second row',
+                fridaySecondRowThree: 'second row',
+                saturdaySecondRowOne: 'second row',
+                saturdaySecondRowTwo: 'second row',
+                saturdaySecondRowThree: 'second row',
+                thursdayThirdRowOne: 'third row',
+                thursdayThirdRowTwo: 'third row',
+                thursdayThirdRowThree: 'third row',
+                thursdayThirdRowFour: 'third row',
+                fridayThirdRowOne: 'third row',
+                fridayThirdRowTwo: 'third row',
+                fridayThirdRowThree: 'third row',
+                fridayThirdRowFour: 'third row',
+                saturdayThirdRowOne: 'third row',
+                saturdayThirdRowTwo: 'third row',
+                saturdayThirdRowThree: 'third row',
+                saturdayThirdRowFour: 'third row',
+                wednesdayHeadliner: 'wednesday headliner',
+                wednesdaySecondBand: 'wednesday band',
+                wednesdayThirdBand: 'wednesday band',
+                wednesdayFourthBand: 'wednesday band',
+            }
+            return mapping[key] || 'unknown'
+        },
         onSelectedOption(selected) {
             this.bandSelected = selected.id ? true : false;
             this.$emit('selected', selected);
 
+            const position = this.getBandRole(this.position);
 
             if (selected?.name) {
                 window.gtag('event', 'band_selected', {
                 band_name: selected.name,
-                position: this.title,
+                position: position,
                 value: 1,
             });
             //     window.gtag('event', 'band_selected', {

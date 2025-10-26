@@ -89,6 +89,7 @@
     :title="modalTitle"
     :key="key ? key.toString() : ''"
     :hasBand="activeBand"
+    :position="modalPosition"
     :thursdayCoHeadliner="coHeadliner.thursday"
     :fridayCoHeadliner="coHeadliner.friday"
     :saturdayCoHeadliner="coHeadliner.saturday"
