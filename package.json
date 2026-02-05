@@ -10,7 +10,7 @@
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
-    "@benjicwood/artist-assets": "^1.0.18",
+    "@benjicwood/artist-assets": "^1.0.21",
     "core-js": "^3.8.3",
     "html-to-image": "^1.11.13",
     "vue": "^3.2.13",
