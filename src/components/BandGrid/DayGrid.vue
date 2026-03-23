@@ -97,28 +97,6 @@ export default {
   box-sizing: border-box;
 }
 
-.smallest-band-logo {
-  transform: scale(0.7);
-}
-.smaller-band-logo {
-  transform: scale(0.8);
-}
-.small-band-logo {
-  transform: scale(0.9);
-}
-.normal-band-logo {
-  transform: scale(1);
-}
-.large-band-logo {
-  transform: scale(1.1);
-}
-.larger-band-logo {
-  transform: scale(1.2);
-}
-.largest-band-logo {
-  transform: scale(1.3);
-}
-
 .headliners-row.headliners-one {
   display: grid;
   grid-template-columns: 1fr; /* single column */
@@ -127,7 +105,7 @@ export default {
 
 .headliners-row.headliners-two {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* two equal columns */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   height: 31%;
   gap: 0;
 }

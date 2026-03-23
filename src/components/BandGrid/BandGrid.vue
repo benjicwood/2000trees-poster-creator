@@ -276,4 +276,9 @@ export default {
   border-color: #C67D0E;
 }
 
+.band-grid-wednesday > * {
+  min-width: 0;
+  min-height: 0;
+}
+
 </style>
