@@ -55,7 +55,7 @@ export default {
     maxItem: {
       type: Number,
       required: false,
-      default: 1000,
+      default: 1500,
     },
     id: {
       type: Number,
@@ -205,7 +205,7 @@ export default {
 
 /* .dropdown-menu {
   position: fixed;
-  z-index: 2000; 
+  z-index: 2000;
   min-width: 160px;
   max-height: 200px;
   overflow-y: auto;
@@ -218,7 +218,7 @@ export default {
 
 /* .dropdown-menu {
   position: fixed;
-  z-index: 2000; 
+  z-index: 2000;
   top: 100%;
   left: 0;
   z-index: 1000;m

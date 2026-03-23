@@ -234,7 +234,7 @@ export default {
   box-sizing: border-box;
   padding-top: 15%;     /* aligns headliner with artwork */
   padding-bottom: 5%;
-  padding-left: 5%;
+  padding-left: 6%;
   padding-right: 4%;
   border: 3px solid white;
 }
