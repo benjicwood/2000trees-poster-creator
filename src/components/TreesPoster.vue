@@ -43,7 +43,7 @@
         </button>
     </div>
     <a
-        href="/#/gallery"
+        href="./#/gallery"
         target="_blank"
         rel="noopener noreferrer"
         class="gallery-link"
