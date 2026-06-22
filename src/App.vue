@@ -1,21 +1,16 @@
 <template>
-    <TreesPoster msg="Welcome to Your Vue.js App"/>
+    <!-- <TreesPoster msg="Welcome to Your Vue.js App"/> -->
+     <router-view />
     <!-- <AppFooter />
     <MobileWarning /> -->
 </template>
 
 <script>
-import TreesPoster from './components/TreesPoster.vue'
 // import AppFooter from './components/AppFooter.vue'
 // import MobileWarning from './components/MobileWarning.vue'
 
 export default {
     name: 'App',
-    components: {
-        TreesPoster,
-        // AppFooter,
-        // MobileWarning,
-    }
 }
 </script>
 

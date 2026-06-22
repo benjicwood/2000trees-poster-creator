@@ -31,15 +31,25 @@
 
   <!-- Fixed bottom bar -->
   <div class="button-row" :class="{ hidden: controlsHidden }">
-    <button class="download-btn" @click="downloadPoster">Export Poster</button>
+    <div class="button-actions">
+        <button class="download-btn" @click="downloadPoster">Export Poster</button>
 
-    <button v-if="isMobile" class="share-btn" @click="sharePoster">
-      Share Poster
-    </button>
+        <button v-if="isMobile" class="share-btn" @click="sharePoster">
+        Share Poster
+        </button>
 
-    <button v-else class="copy-btn" @click="copyPoster">
-      Copy to Clipboard
-    </button>
+        <button v-else class="copy-btn" @click="copyPoster">
+        Copy to Clipboard
+        </button>
+    </div>
+    <a
+        href="/#/gallery"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="gallery-link"
+    >
+        Need inspiration? see more fan posters →
+    </a>
   </div>
 
   <!-- Toggle button -->
@@ -110,18 +120,39 @@ export default {
     },
 
     async downloadPoster() {
-      const node = this.$refs.poster;
-      const dataUrl = await toPng(node, {
+    const node = this.$refs.poster;
+
+    try {
+        const blob = await toBlob(node, {
+        backgroundColor: "#000",
+        pixelRatio: 2,
+        });
+
+        const dataUrl = await toPng(node, {
         quality: 1,
         cacheBust: true,
         backgroundColor: "#000",
         pixelRatio: 2,
-      });
-      const link = document.createElement("a");
-      link.download = `trees-poster-${this.selectedYear}.png`;
-      link.href = dataUrl;
-      link.click();
-      this.showToast("Poster downloaded!");
+        });
+
+        // Download locally
+        const link = document.createElement("a");
+        link.download = `trees-poster-${this.selectedYear}.png`;
+        link.href = dataUrl;
+        link.click();
+
+        // Upload to Cloudinary
+        try {
+        await this.uploadPosterToCloudinary(blob);
+        this.showToast("Poster downloaded!");
+        } catch (e) {
+        console.error(e);
+        this.showToast("Poster downloaded (upload failed)", "error");
+        }
+    } catch (e) {
+        console.error(e);
+        this.showToast("Failed to export poster", "error");
+    }
     },
 
     async sharePoster() {
@@ -164,6 +195,28 @@ export default {
       ]);
       this.showToast("Poster copied to clipboard!");
     },
+    async uploadPosterToCloudinary(blob) {
+        const form = new FormData();
+
+        form.append("file", blob);
+        form.append("upload_preset", "trees-posters");
+        form.append("tags", "trees-gallery");
+
+        const res = await fetch(
+            "https://api.cloudinary.com/v1_1/dhqkcdjcx/image/upload",
+            {
+            method: "POST",
+            body: form,
+            }
+        );
+
+        if (!res.ok) {
+            const err = await res.text();
+            throw new Error(err);
+        }
+
+        return res.json();
+    },
   },
 };
 </script>
@@ -198,13 +251,18 @@ export default {
   transform: translateX(-50%);
   z-index: 100;
   display: flex;
+  flex-direction: column;   // <-- add
+  align-items: center;      // <-- add
+  gap: 0.5rem;              // <-- adjust spacing
   justify-content: center;
   gap: 0.75rem;
   background: rgba(23, 39, 68, 0.95);
   padding: 0.75rem 1.25rem;
   border-radius: 12px 12px 0 0;
   backdrop-filter: blur(6px);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
 
   &.hidden {
     transform: translate(-50%, 100%);
@@ -217,7 +275,7 @@ export default {
 .toggle-bar {
   border: 2px solid white;
   position: fixed;
-  bottom: 4.5rem;
+  bottom: 6.5rem;
   // left: 50%;
   // transform: translateX(-50%);
   z-index: 101;
@@ -294,7 +352,9 @@ export default {
     right: auto;
     left: auto;
     transform: none;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
     justify-content: center;
     align-items: center;
     margin: 1.5rem auto 0 auto;
@@ -317,6 +377,22 @@ export default {
   text-align: center;
   pointer-events: none;
   width: 90%;
+}
+
+.button-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.gallery-link {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+.gallery-link:hover {
+  text-decoration: underline;
 }
 
 .background-selector {
