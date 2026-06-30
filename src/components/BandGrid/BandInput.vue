@@ -1,48 +1,96 @@
 <template>
-  <div class="band-input">
-    <input :class="`band-input-input ${size}`" type="text" name="" id="" />
+  <div
+    class="band-input"
+    @click="$emit('click')"
+  >
+    <span
+      :class="[
+        'band-input-text',
+        size,
+        { placeholder: !hasBands }
+      ]"
+    >
+      {{ displayText }}
+    </span>
   </div>
 </template>
 
 <script>
 export default {
   name: "BandInput",
+
   props: {
-    size: String,
+    value: {
+      type: Object,
+      required: true,
+    },
+
+    size: {
+      type: String,
+      default: "medium",
+    },
+
+    hasPosterContent: {
+    type: Boolean,
+    default: false,
+  },
+  },
+
+  emits: ["click"],
+
+  computed: {
+    hasBands() {
+      return this.value?.bands?.length > 0;
+    },
+
+    displayText() {
+        if (!this.hasBands) {
+            return this.hasPosterContent ? "" : "Click to add bands";
+        }
+
+        return this.value.bands
+            .map((band) => band.name.toUpperCase())
+            .join(` ${this.value.divider} `);
+        },
   },
 };
 </script>
 
 <style scoped>
 .band-input {
+  width: 100%;
   border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .band-input:hover {
-  border: solid #C67D0E 1px;
+  border-color: #C67D0E;
 }
 
-.band-input-input {
+.band-input-text {
   width: 100%;
-  background: transparent;
-  border: none;
   text-align: center;
   color: white;
   font-family: "Soleil", sans-serif;
   font-weight: 700;
   text-transform: uppercase;
+  user-select: none;
 }
 
-.large {
-  height: 22px;
-  font-size: 15px;
+.placeholder {
+  opacity: .5;
 }
+
 .medium {
-  height: 20px;
   font-size: 15px;
+  min-height: 20px;
 }
+
 .small {
-  height: 13px;
   font-size: 12px;
+  min-height: 13px;
 }
 </style>

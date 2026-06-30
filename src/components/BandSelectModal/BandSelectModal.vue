@@ -151,6 +151,7 @@ export default {
   name: "BandSelectModal",
   props: {
     title: String,
+    slug: String,
     id: String,
     hasBand: Boolean,
     thursdayCoHeadliner: Boolean,
@@ -272,17 +273,24 @@ export default {
       this.$emit("selected", { ...selected, chosenImage: this.chosenImage });
       // this.$emit('selected', selected);
 
-      if (selected?.name) {
-        const day = this.title?.split(" ")[0] || "Unknown"; // extract first word as day
-        const position = this.title || "Unknown";
+      if (selected?.name && typeof window.gtag === "function") {
+        const dayMap = {
+            dayOne: "Thursday",
+            dayTwo: "Friday",
+            dayThree: "Saturday",
+            dayFour: "Wednesday",
+        };
+
+        const day = dayMap[this.id] || this.id;
 
         window.gtag("event", "band_selected", {
-          band_name: selected.name,
-          day,
-          position,
-          value: 1,
+            band_name: selected.name,
+            day,
+            section: this.title,
+            custom: false,
+            value: 1,
         });
-      }
+    }
       // if (selected?.name) {
       //   window.gtag("event", "band_selected", {
       //     band_name: selected.name,
@@ -549,6 +557,7 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
+  color: black;
 }
 input[type="range"] {
   width: 100%;

@@ -2,10 +2,12 @@
   <div class="dropdown" v-if="options">
     <div class="dropdown-toggle">
       <input
+        ref="input"
         :key="id"
         :name="name"
         @focus="showOptions()"
         @blur="exit()"
+        @input="onInput"
         @keyup="keyMonitor"
         v-model="searchFilter"
         :disabled="disabled"
@@ -92,10 +94,14 @@ export default {
       this.$emit("selected", this.selected);
     },
     showOptions() {
-      if (!this.disabled) {
-        this.searchFilter = "";
-        this.optionsShown = true;
-      }
+        if (!this.disabled && this.searchFilter.trim().length > 0) {
+            this.optionsShown = true;
+        }
+    },
+    onInput() {
+        if (!this.disabled) {
+            this.optionsShown = this.searchFilter.trim().length > 0;
+        }
     },
     exit() {
       const previousSelected = this.selected;
@@ -126,6 +132,15 @@ export default {
     keyMonitor: function (event) {
       if (event.key === "Enter" && this.filteredOptions[0])
         this.selectOption(this.filteredOptions[0]);
+    },
+    focus() {
+        this.$refs.input.focus();
+    },
+
+    clear() {
+        this.selected = {};
+        this.searchFilter = "";
+        this.optionsShown = false;
     },
   },
   watch: {

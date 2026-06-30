@@ -60,8 +60,19 @@
 
     <!-- Inputs (optional, could also be slotted in) -->
     <div class="input-grid">
-      <BandInput size="medium" />
-      <BandInput size="small" />
+    <BandInput
+        size="medium"
+        :value="bands.additionalBands.medium"
+        :hasPosterContent="hasPosterContent"
+        @click="emitOpenBandModal('medium')"
+    />
+
+    <BandInput
+        size="small"
+        :value="bands.additionalBands.small"
+        :hasPosterContent="hasPosterContent"
+        @click="emitOpenBandModal('small')"
+    />
     </div>
   </div>
 </template>
@@ -79,11 +90,18 @@ export default {
     bands: { type: Object, required: true }, // nested object with headliner/coHeadliner/secondRow/thirdRow
     coHeadliner: { type: Boolean, default: false },
     alwaysHighlight: { type: Boolean, default: false },
+    hasPosterContent: { type: Boolean, default: false },
   },
-  emits: ["open"],
+  emits: ["open", "open-band-modal"],
   methods: {
     emitOpen(position, title) {
       this.$emit("open", { slug: this.slug, position, title });
+    },
+    emitOpenBandModal(size) {
+        this.$emit("open-band-modal", {
+            slug: this.slug,
+            size,
+        });
     },
   },
 };
