@@ -7,7 +7,9 @@
       :bands="days.dayOne"
       :coHeadliner="coHeadliner.thursday"
       @open="openModal"
+      @open-band-modal="openBandModal"
       :alwaysHighlight="alwaysHighlight"
+      :hasPosterContent="hasPosterContent"
     />
 
     <!-- Friday -->
@@ -17,7 +19,9 @@
       :bands="days.dayTwo"
       :coHeadliner="coHeadliner.friday"
       @open="openModal"
+      @open-band-modal="openBandModal"
       :alwaysHighlight="alwaysHighlight"
+      :hasPosterContent="hasPosterContent"
     />
 
     <!-- Saturday -->
@@ -27,7 +31,9 @@
       :bands="days.dayThree"
       :coHeadliner="coHeadliner.saturday"
       @open="openModal"
+      @open-band-modal="openBandModal"
       :alwaysHighlight="alwaysHighlight"
+      :hasPosterContent="hasPosterContent"
     />
 
     <!-- Wednesday -->
@@ -58,7 +64,7 @@
     </div>
 
   </div>
-  <!-- Modal -->
+  <!-- Modals -->
   <BandSelectModal
     v-show="isModalVisible"
     @selected="onSelect"
@@ -74,19 +80,27 @@
     :currentBand="currentBand"
     :currentImage="currentImage"
   />
+  <BandListModal
+    v-if="isBandListModalVisible"
+    :currentBands="days[bandListSlug].additionalBands[bandListSize].bands"
+    :divider="days[bandListSlug].additionalBands[bandListSize].divider"
+    @close="isBandListModalVisible = false"
+    @save="saveBandList"
+/>
 </template>
 
 <script>
 import DayGrid from "./DayGrid.vue";
 import BandSelectModal from "../BandSelectModal/BandSelectModal.vue";
 import BandSection from "./BandSection.vue";
+import BandListModal from "../BandSelectModal/BandListModal.vue";
 
 export default {
   name: "BandGrid",
   props: {
     alwaysHighlight: { type: Boolean, default: false },
   },
-  components: { DayGrid, BandSelectModal, BandSection },
+  components: { DayGrid, BandSelectModal, BandSection, BandListModal },
   data() {
     return {
       isModalVisible: false,
@@ -95,6 +109,9 @@ export default {
       modalSlug: null,
       key: 0,
       activeBand: null,
+      isBandListModalVisible: false,
+      bandListSlug: null,
+      bandListSize: null,
 
       days: {
         dayOne: {
@@ -111,6 +128,17 @@ export default {
             { band: "", size: "", chosenImage: null },
             { band: "", size: "", chosenImage: null },
           ],
+        additionalBands: {
+            medium: {
+                bands: [],
+                divider: "•",
+            },
+
+            small: {
+                bands: [],
+                divider: "•",
+            },
+        },
         },
         dayTwo: {
           headliner: { band: "", size: "", chosenImage: null },
@@ -126,6 +154,17 @@ export default {
             { band: "", size: "", chosenImage: null },
             { band: "", size: "", chosenImage: null },
           ],
+            additionalBands: {
+                medium: {
+                    bands: [],
+                    divider: "•",
+                },
+
+                small: {
+                    bands: [],
+                    divider: "•",
+                },
+            },
         },
         dayThree: {
           headliner: { band: "", size: "", chosenImage: null },
@@ -141,6 +180,17 @@ export default {
             { band: "", size: "", chosenImage: null },
             { band: "", size: "", chosenImage: null },
           ],
+        additionalBands: {
+        medium: {
+            bands: [],
+                divider: "•",
+            },
+
+            small: {
+                bands: [],
+                divider: "•",
+            },
+        },
         },
         dayFour: {
           headliner: { band: "", size: "", chosenImage: null },
@@ -168,6 +218,20 @@ export default {
         this.days[this.modalSlug]?.[this.modalPosition]?.chosenImage ?? null
       );
     },
+    hasPosterContent() {
+        return Object.values(this.days).some((day) => {
+            if (day.headliner?.band) return true;
+            if (day.coHeadliner?.band) return true;
+
+            if (day.secondRow?.some((b) => b.band)) return true;
+            if (day.thirdRow?.some((b) => b.band)) return true;
+
+            if (day.additionalBands?.medium?.bands?.length) return true;
+            if (day.additionalBands?.small?.bands?.length) return true;
+
+            return false;
+        });
+    },
   },
   methods: {
     openModal({ slug, position, title }) {
@@ -178,6 +242,21 @@ export default {
       const slot = this.getSlot(slug, position);
       this.activeBand = !!slot.band;
       this.isModalVisible = true;
+    },
+    openBandModal({ slug, size }) {
+        this.bandListSlug = slug;
+        this.bandListSize = size;
+        this.isBandListModalVisible = true;
+    },
+
+    saveBandList({ bands, divider }) {
+        this.days[this.bandListSlug]
+            .additionalBands[this.bandListSize] = {
+                bands,
+                divider,
+            };
+
+        this.isBandListModalVisible = false;
     },
     // onSelect(selected) {
     //   const slot = this.getSlot(this.modalSlug, this.modalPosition);

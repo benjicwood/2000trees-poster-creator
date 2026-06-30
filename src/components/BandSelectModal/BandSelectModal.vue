@@ -549,6 +549,7 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
+  color: black;
 }
 input[type="range"] {
   width: 100%;
