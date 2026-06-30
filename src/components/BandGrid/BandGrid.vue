@@ -72,6 +72,7 @@
     @close="closeModal"
     @coHeadliner="handleCoHeadliner"
     :title="modalTitle"
+    :slug="modalSlug"
     :key="key ? key.toString() : ''"
     :hasBand="activeBand"
     :thursdayCoHeadliner="coHeadliner.thursday"
@@ -86,7 +87,9 @@
     :divider="days[bandListSlug].additionalBands[bandListSize].divider"
     @close="isBandListModalVisible = false"
     @save="saveBandList"
-/>
+    :slug="bandListSlug"
+    :size="bandListSize"
+    />
 </template>
 
 <script>

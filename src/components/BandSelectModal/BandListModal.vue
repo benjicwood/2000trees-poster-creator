@@ -127,6 +127,16 @@ export default {
       type: Number,
       default: 8,
     },
+
+    slug: {
+        type: String,
+        required: true,
+    },
+
+    size: {
+        type: String,
+        required: true,
+    },
   },
 
   emits: ["save", "close"],
@@ -218,14 +228,33 @@ export default {
     },
 
     addBand() {
-      if (!this.canAddBand) return;
+        if (!this.canAddBand) return;
 
-      this.selectedBands.push(this.bandToAdd);
+        this.selectedBands.push(this.bandToAdd);
 
-      this.pendingBand = null;
-      this.typedText = "";
+        const dayMap = {
+            dayOne: "Thursday",
+            dayTwo: "Friday",
+            dayThree: "Saturday",
+            dayFour: "Wednesday",
+        };
 
-      this.resetSearch();
+        // Google Analytics
+        if (typeof window.gtag === "function") {
+            window.gtag("event", "additional_band_added", {
+            band_name: this.bandToAdd.name,
+            day: dayMap[this.slug] || this.slug,
+            section: this.size,
+            custom: this.bandToAdd.custom,
+            divider: this.selectedDivider,
+            value: 1,
+            });
+        }
+
+        this.pendingBand = null;
+        this.typedText = "";
+
+        this.resetSearch();
     },
 
     removeBand(index) {
