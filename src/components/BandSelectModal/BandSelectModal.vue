@@ -281,16 +281,19 @@ export default {
             dayFour: "Wednesday",
         };
 
-        const day = dayMap[this.id] || this.id;
+        const logoSection = this.title?.toLowerCase().includes("headliner")
+    ? "headliner"
+    : "logo band";
 
         window.gtag("event", "band_selected", {
-            band_name: selected.name,
-            day,
-            section: this.title,
+            band_name: selected.name.toUpperCase(),
+            day: dayMap[this.slug] || this.slug,
+            section: logoSection,
             custom: false,
+            divider: null,
             value: 1,
         });
-    }
+        }
       // if (selected?.name) {
       //   window.gtag("event", "band_selected", {
       //     band_name: selected.name,

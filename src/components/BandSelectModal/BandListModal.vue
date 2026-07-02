@@ -232,22 +232,21 @@ export default {
 
         this.selectedBands.push(this.bandToAdd);
 
-        const dayMap = {
-            dayOne: "Thursday",
-            dayTwo: "Friday",
-            dayThree: "Saturday",
-            dayFour: "Wednesday",
-        };
-
-        // Google Analytics
         if (typeof window.gtag === "function") {
-            window.gtag("event", "additional_band_added", {
-            band_name: this.bandToAdd.name,
-            day: dayMap[this.slug] || this.slug,
-            section: this.size,
-            custom: this.bandToAdd.custom,
-            divider: this.selectedDivider,
-            value: 1,
+            const dayMap = {
+                dayOne: "Thursday",
+                dayTwo: "Friday",
+                dayThree: "Saturday",
+                dayFour: "Wednesday",
+            };
+
+            window.gtag("event", "band_selected", {
+                band_name: this.bandToAdd.name.toUpperCase(),
+                day: dayMap[this.slug] || this.slug,
+                section: "text band",
+                custom: this.bandToAdd.custom,
+                divider: this.selectedDivider,
+                value: 1,
             });
         }
 
