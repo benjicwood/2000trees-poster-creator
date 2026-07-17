@@ -129,10 +129,13 @@ export default {
 
         const node = this.$refs.poster;
 
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const pixelRatio = isIOS ? 1 : 2;
+
         try {
             const blob = await toBlob(node, {
                 backgroundColor: "#000",
-                pixelRatio: 2,
+                pixelRatio,
             });
 
             if (!blob) {
@@ -143,15 +146,13 @@ export default {
                 quality: 1,
                 cacheBust: true,
                 backgroundColor: "#000",
-                pixelRatio: 2,
+                pixelRatio,
             });
 
             const link = document.createElement("a");
             link.download = `trees-poster-${this.selectedYear}.png`;
             link.href = dataUrl;
             link.click();
-
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
             if (!isIOS) {
                 try {
