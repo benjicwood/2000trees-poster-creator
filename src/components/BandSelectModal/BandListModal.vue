@@ -104,6 +104,7 @@
 <script>
 import SearchDropdown from "./SearchDropdown.vue";
 import { bands } from "@benjicwood/artist-assets";
+import { trackBandSelectedOncePerSession } from "../../utils/analytics.js";
 
 export default {
   name: "BandListModal",
@@ -240,13 +241,12 @@ export default {
                 dayFour: "Wednesday",
             };
 
-            window.gtag("event", "band_selected", {
-                band_name: this.bandToAdd.name.toUpperCase(),
+            trackBandSelectedOncePerSession({
+                bandName: this.bandToAdd.name,
                 day: dayMap[this.slug] || this.slug,
                 section: "text band",
                 custom: this.bandToAdd.custom,
                 divider: this.selectedDivider,
-                value: 1,
             });
         }
 

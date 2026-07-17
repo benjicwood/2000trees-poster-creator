@@ -32,7 +32,7 @@
   <!-- Fixed bottom bar -->
   <div class="button-row" :class="{ hidden: controlsHidden }">
     <div class="button-actions">
-        <button class="download-btn" @click="downloadPoster">Export Poster</button>
+        <button class="download-btn" :disabled="isExporting" @click="downloadPoster">{{ isExporting ? "Exporting..." : "Export Poster" }}</button>
 
         <button v-if="isMobile" class="share-btn" @click="sharePoster">
         Share Poster
@@ -79,6 +79,7 @@ export default {
       selectedYear: "2026",
       isMobile: false,
       controlsHidden: false,
+      isExporting: false,
       toast: { show: false, message: "", type: "success" },
     };
   },
@@ -120,39 +121,47 @@ export default {
     },
 
     async downloadPoster() {
-    const node = this.$refs.poster;
+        if (this.isExporting) return;
 
-    try {
-        const blob = await toBlob(node, {
-        backgroundColor: "#000",
-        pixelRatio: 2,
-        });
+        this.isExporting = true;
 
-        const dataUrl = await toPng(node, {
-        quality: 1,
-        cacheBust: true,
-        backgroundColor: "#000",
-        pixelRatio: 2,
-        });
+        const node = this.$refs.poster;
 
-        // Download locally
-        const link = document.createElement("a");
-        link.download = `trees-poster-${this.selectedYear}.png`;
-        link.href = dataUrl;
-        link.click();
-
-        // Upload to Cloudinary
         try {
-        await this.uploadPosterToCloudinary(blob);
-        this.showToast("Poster downloaded!");
-        } catch (e) {
-        console.error(e);
-        this.showToast("Poster downloaded (upload failed)", "error");
+            const blob = await toBlob(node, {
+            backgroundColor: "#000",
+            pixelRatio: 2,
+            });
+
+            if (!blob) {
+            throw new Error("Failed to generate poster image");
+            }
+
+            const dataUrl = await toPng(node, {
+            quality: 1,
+            cacheBust: true,
+            backgroundColor: "#000",
+            pixelRatio: 2,
+            });
+
+            const link = document.createElement("a");
+            link.download = `trees-poster-${this.selectedYear}.png`;
+            link.href = dataUrl;
+            link.click();
+
+            try {
+            await this.uploadPosterToCloudinary(blob);
+            this.showToast("Poster downloaded!");
+            } catch (error) {
+            console.error(error);
+            this.showToast("Poster downloaded (upload failed)", "error");
+            }
+        } catch (error) {
+            console.error(error);
+            this.showToast("Failed to export poster", "error");
+        } finally {
+            this.isExporting = false;
         }
-    } catch (e) {
-        console.error(e);
-        this.showToast("Failed to export poster", "error");
-    }
     },
 
     async sharePoster() {
@@ -253,7 +262,6 @@ export default {
   display: flex;
   flex-direction: column;   // <-- add
   align-items: center;      // <-- add
-  gap: 0.5rem;              // <-- adjust spacing
   justify-content: center;
   gap: 0.75rem;
   background: rgba(23, 39, 68, 0.95);
@@ -347,22 +355,56 @@ export default {
 }
 
 @media (max-width: 620px) {
+  .poster-container {
+    min-height: auto;
+    align-items: flex-start;
+  }
+
+  .poster-wrapper {
+    margin: 0 auto;
+  }
+
+  .poster-background {
+    max-width: 100vw;
+    max-height: none;
+    width: 100%;
+    height: auto;
+  }
+
   .button-row {
     top: auto;
-    right: auto;
-    left: auto;
+    right: 0.75rem;
+    bottom: 1rem;
+    left: 0.75rem;
     transform: none;
+
+    width: auto;
+    margin: 0;
+    padding: 0;
+
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
     justify-content: center;
-    align-items: center;
-    margin: 1.5rem auto 0 auto;
+    gap: 0.5rem;
+
     background: transparent;
     box-shadow: none;
-    padding: 0;
-    bottom: 0;
-    margin-bottom: 1rem;
+  }
+
+  .button-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .download-btn,
+  .share-btn {
+    flex: 1;
+    min-width: 0;
+    padding: 0.8rem 0.75rem;
+  }
+
+  .button-row.hidden {
+    transform: translateY(calc(100% + 1rem));
   }
 }
 
@@ -393,6 +435,14 @@ export default {
 
 .gallery-link:hover {
   text-decoration: underline;
+}
+
+.download-btn {
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+  }
 }
 
 .background-selector {

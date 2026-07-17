@@ -144,6 +144,7 @@
 // import SearchDropdown from 'search-dropdown-vue'
 import SearchDropdown from "./SearchDropdown.vue";
 import { bands } from "@benjicwood/artist-assets";
+import { trackBandSelectedOncePerSession } from "../../utils/analytics.js";
 
 // console.log(bands);
 
@@ -285,13 +286,12 @@ export default {
     ? "headliner"
     : "logo band";
 
-        window.gtag("event", "band_selected", {
-            band_name: selected.name.toUpperCase(),
+        trackBandSelectedOncePerSession({
+            bandName: selected.name,
             day: dayMap[this.slug] || this.slug,
             section: logoSection,
             custom: false,
             divider: null,
-            value: 1,
         });
         }
       // if (selected?.name) {
