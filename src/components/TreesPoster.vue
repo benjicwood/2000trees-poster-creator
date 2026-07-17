@@ -15,10 +15,11 @@
         2026
       </button>
     </div> -->
+        <!-- src="https://i.ibb.co/LX37M3H1/trees-blank-2026.png" -->
     <div class="poster-wrapper" ref="poster">
       <img
         class="poster-background"
-        src="https://i.ibb.co/LX37M3H1/trees-blank-2026.png"
+        :src="bg2026"
         alt="Festival Poster"
       />
       <BandGrid ref="bandGrid" :alwaysHighlight="isMobile && posterEmpty" />
@@ -67,7 +68,7 @@
 import BandGrid from "./BandGrid/BandGrid.vue";
 import { toPng, toBlob } from "html-to-image";
 // import bg2025 from "../../assets/background/trees-blank-2025.png";
-// import bg2026 from "../../assets/background/trees-blank-2026.png";
+import bg2026 from "../assets/background/trees-blank-2026.png";
 
 export default {
   name: "TreesPoster",
@@ -75,6 +76,7 @@ export default {
 
   data() {
     return {
+      bg2026,
       isHidden: false,
       selectedYear: "2026",
       isMobile: false,
@@ -129,19 +131,19 @@ export default {
 
         try {
             const blob = await toBlob(node, {
-            backgroundColor: "#000",
-            pixelRatio: 2,
+                backgroundColor: "#000",
+                pixelRatio: 2,
             });
 
             if (!blob) {
-            throw new Error("Failed to generate poster image");
+                throw new Error("Failed to generate poster image");
             }
 
             const dataUrl = await toPng(node, {
-            quality: 1,
-            cacheBust: true,
-            backgroundColor: "#000",
-            pixelRatio: 2,
+                quality: 1,
+                cacheBust: true,
+                backgroundColor: "#000",
+                pixelRatio: 2,
             });
 
             const link = document.createElement("a");
@@ -149,13 +151,22 @@ export default {
             link.href = dataUrl;
             link.click();
 
-            try {
-            await this.uploadPosterToCloudinary(blob);
-            this.showToast("Poster downloaded!");
-            } catch (error) {
-            console.error(error);
-            this.showToast("Poster downloaded (upload failed)", "error");
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+            if (!isIOS) {
+                try {
+                    await this.uploadPosterToCloudinary(blob);
+                } catch (error) {
+                    console.error(error);
+                    this.showToast(
+                        "Poster downloaded (upload failed)",
+                        "error"
+                    );
+                    return;
+                }
             }
+
+            this.showToast("Poster downloaded!");
         } catch (error) {
             console.error(error);
             this.showToast("Failed to export poster", "error");
