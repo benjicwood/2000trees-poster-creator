@@ -7,13 +7,13 @@
 
     <div v-else class="grid">
       <a
-        v-for="p in posters"
+        v-for="p in posters.slice(0, 8)"
         :key="p.public_id"
         :href="imgUrl(p)"
         target="_blank"
         rel="noreferrer"
       >
-        <img :src="imgUrl(p)" alt="Poster" loading="lazy" />
+        <img :src="imgUrl(p)" alt="Poster" loading="lazy" @error="removeBrokenPoster(p.public_id)" />
       </a>
     </div>
   </div>
@@ -38,7 +38,7 @@ export default {
       this.posters = (data.resources || [])
         .slice()
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        .slice(0, 8);
+        // .slice(0, 8);
     } catch (e) {
       console.error(e);
       this.error = e?.message || "Failed to load gallery";
@@ -48,9 +48,19 @@ export default {
   },
 
   methods: {
+    // imgUrl(p) {
+    //   // v<version> makes sure you don't get a cached old image
+    //   return `https://res.cloudinary.com/dhqkcdjcx/image/upload/f_auto,q_auto,w_800/v${p.version}/${p.public_id}.png`;
+    // },
     imgUrl(p) {
-      // v<version> makes sure you don't get a cached old image
-      return `https://res.cloudinary.com/dhqkcdjcx/image/upload/f_auto,q_auto,w_800/v${p.version}/${p.public_id}.png`;
+        const format = p.format || "png";
+
+        return `https://res.cloudinary.com/dhqkcdjcx/image/upload/f_auto,q_auto,w_800/v${p.version}/${p.public_id}.${format}`;
+    },
+    removeBrokenPoster(publicId) {
+        this.posters = this.posters.filter(
+            poster => poster.public_id !== publicId
+        );
     },
   },
 };

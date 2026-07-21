@@ -132,7 +132,7 @@
         <button type="button" class="button-clear" @click="clearSelection">
           Clear Selection
         </button>
-        <button type="button" class="button-confirm" @click="close">
+        <button type="button" class="button-confirm" @click="confirmSelection">
           Confirm Selection
         </button>
       </div>
@@ -385,6 +385,32 @@ export default {
       this.drag.offsetY = 0;
 
       this.$emit("close");
+    },
+    confirmSelection() {
+        const customBandName = this.customBandText.trim();
+
+        if (this.isCustom && customBandName) {
+            const dayMap = {
+            dayOne: "Thursday",
+            dayTwo: "Friday",
+            dayThree: "Saturday",
+            dayFour: "Wednesday",
+            };
+
+            const logoSection = this.title?.toLowerCase().includes("headliner")
+            ? "headliner"
+            : "logo band";
+
+            trackBandSelectedOncePerSession({
+            bandName: customBandName,
+            day: dayMap[this.slug] || this.slug,
+            section: logoSection,
+            custom: true,
+            divider: null,
+            });
+        }
+
+        this.close();
     },
     startDrag(e) {
       // Support touch and mouse
