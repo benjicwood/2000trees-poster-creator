@@ -8,28 +8,29 @@
 
       <div class="modal-body">
         <div class="search-row">
-            <SearchDropdown
-                ref="search"
-                :key="searchKey"
-                :options="bands"
-                :maxItem="8"
-                @selected="selectBand"
-                @filter="onFilter"
-                placeholder="Search or type a band"
-            />
+          <SearchDropdown
+            ref="search"
+            :key="searchKey"
+            :options="bands"
+            :maxItem="8"
+            @selected="selectBand"
+            @filter="onFilter"
+            @keydown.enter.stop="handleKeydown"
+            placeholder="Search or type a band"
+          />
 
-            <button
-                type="button"
-                class="add-btn"
-                :disabled="!canAddBand"
-                @click="addBand"
-            >
-                Add Band
-            </button>
+          <button
+            type="button"
+            class="add-btn"
+            :disabled="!canAddBand"
+            @click="addBand"
+          >
+            Add Band
+          </button>
         </div>
 
         <p class="helper">
-            Search for a band, or type a custom name and press Enter to add it.
+          Search for a band, or type a custom name and press Enter to add it.
         </p>
 
         <div class="selected">
@@ -66,37 +67,27 @@
         </div>
       </div>
 
-        <footer>
+      <footer>
+        <div class="footer-left">
+          <select v-model="selectedDivider">
+            <option value="•">• Bullet</option>
+            <option value="|">| Pipe</option>
+            <option value=".">. Dot</option>
+            <option value="▪">▪ Square</option>
+            <option value="/">/ Slash</option>
+          </select>
+        </div>
 
-            <div class="footer-left">
+        <div class="footer-right">
+          <button type="button" @click="$emit('close')">
+            Cancel
+          </button>
 
-            <select v-model="selectedDivider">
-                <option value="•">• Bullet</option>
-                <option value="|">| Pipe</option>
-                <option value=".">. Dot</option>
-                <option value="▪">▪ Square</option>
-                <option value="/">/ Slash</option>
-            </select>
-
-            </div>
-
-            <div class="footer-right">
-
-                <button type="button" @click="$emit('close')">
-                    Cancel
-                </button>
-
-                <button
-                    type="button"
-                    class="confirm"
-                    @click="confirm"
-                >
-                    Done
-                </button>
-
-            </div>
-
-        </footer>
+          <button type="button" class="confirm" @click="confirm">
+            Done
+          </button>
+        </div>
+      </footer>
     </div>
   </div>
 </template>
@@ -130,13 +121,13 @@ export default {
     },
 
     slug: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
 
     size: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
   },
 
@@ -186,17 +177,15 @@ export default {
 
   mounted() {
     this.focusSearch();
-
-    window.addEventListener("keydown", this.handleKeydown);
-  },
-
-  beforeUnmount() {
-    window.removeEventListener("keydown", this.handleKeydown);
   },
 
   methods: {
     onFilter(value) {
       this.typedText = value || "";
+
+      if (this.pendingBand && this.typedText !== this.pendingBand.name) {
+        this.pendingBand = null;
+      }
 
       if (!this.typedText.trim()) {
         this.pendingBand = null;
@@ -219,41 +208,42 @@ export default {
     },
 
     handleKeydown(event) {
-      if (event.key !== "Enter") return;
+      const search = this.$refs.search;
 
-      event.preventDefault();
+      if (search?.optionsShown && search.filteredOptions.length > 0) return;
 
       if (this.canAddBand) {
+        event.preventDefault();
         this.addBand();
       }
     },
 
     addBand() {
-        if (!this.canAddBand) return;
+      if (!this.canAddBand) return;
 
-        this.selectedBands.push(this.bandToAdd);
+      this.selectedBands.push(this.bandToAdd);
 
-        if (typeof window.gtag === "function") {
-            const dayMap = {
-                dayOne: "Thursday",
-                dayTwo: "Friday",
-                dayThree: "Saturday",
-                dayFour: "Wednesday",
-            };
+      if (typeof window.gtag === "function") {
+        const dayMap = {
+          dayOne: "Thursday",
+          dayTwo: "Friday",
+          dayThree: "Saturday",
+          dayFour: "Wednesday",
+        };
 
-            trackBandSelectedOncePerSession({
-                bandName: this.bandToAdd.name,
-                day: dayMap[this.slug] || this.slug,
-                section: "text band",
-                custom: this.bandToAdd.custom,
-                divider: this.selectedDivider,
-            });
-        }
+        trackBandSelectedOncePerSession({
+          bandName: this.bandToAdd.name,
+          day: dayMap[this.slug] || this.slug,
+          section: "text band",
+          custom: this.bandToAdd.custom,
+          divider: this.selectedDivider,
+        });
+      }
 
-        this.pendingBand = null;
-        this.typedText = "";
+      this.pendingBand = null;
+      this.typedText = "";
 
-        this.resetSearch();
+      this.resetSearch();
     },
 
     removeBand(index) {
@@ -358,29 +348,9 @@ export default {
   font-size: 0.85rem;
 }
 
-.controls-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 0.75rem;
-}
-
-.divider-select {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.divider-select label,
 .preview-wrap label {
   font-weight: 700;
   color: #222;
-}
-
-.divider-select select {
-  padding: 0.6rem;
-  border: 1px solid #bbb;
-  border-radius: 6px;
 }
 
 .add-btn {
@@ -495,15 +465,6 @@ export default {
   overflow-wrap: anywhere;
 }
 
-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  padding: 0.8rem 1.5rem 1rem;
-  border-top: 1px solid #ddd;
-  flex-shrink: 0;
-}
-
 footer button {
   border: 1px solid #ddd;
   background: white;
@@ -538,72 +499,57 @@ footer .confirm {
 }
 
 .search-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: .75rem;
-    align-items: start;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  align-items: start;
 }
 
 .footer-left {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-
-    label {
-        font-weight: 700;
-        white-space: nowrap;
-    }
-
-    select {
-        padding: .55rem .75rem;
-        border-radius: 6px;
-        border: 1px solid #bbb;
-    }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .footer-left select {
-    min-width: 110px;
-    padding: .55rem .75rem;
-    border-radius: 6px;
-    border: 1px solid #bbb;
+  min-width: 110px;
+  padding: 0.55rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #bbb;
 }
 
 .footer-right {
-    display: flex;
-    gap: .5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: .8rem 1.5rem 1rem;
-
-    border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem 1rem;
+  border-top: 1px solid #ddd;
 }
 
-@media (max-width:768px){
+@media (max-width: 768px) {
+  .search-row {
+    grid-template-columns: 1fr;
+  }
 
-    .search-row{
-        grid-template-columns:1fr;
-    }
+  footer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
 
-    footer{
-        flex-direction:column;
-        gap:1rem;
-        align-items:stretch;
-    }
+  .footer-left,
+  .footer-right {
+    width: 100%;
+    justify-content: space-between;
+  }
 
-    .footer-left,
-    .footer-right{
-        width:100%;
-        justify-content:space-between;
-    }
-
-    .footer-right button{
-        flex:1;
-    }
-
+  .footer-right button {
+    flex: 1;
+  }
 }
 </style>
