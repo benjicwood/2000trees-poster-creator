@@ -4,13 +4,14 @@
   "private": true,
   "homepage": "http://benjicwood.github.io/2000trees-poster-creator",
   "scripts": {
+    "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
-    "@benjicwood/artist-assets": "^1.0.31",
+    "@benjicwood/artist-assets": "^1.0.32",
     "core-js": "^3.8.3",
     "html-to-image": "^1.11.13",
     "vue": "^3.2.13",
